@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::body})}">
+<body>
+	<div class="grid">
+		<div class="section all-products" id="products">
+			<div class="top container">
+				<h1>All Products</h1>
+				<form>
+					<select onchange="ad(this)">
+						<option value="1">Defualt Sorting</option>
+						<option value="2">Sort By Price</option>
+						<option value="3">Sort By Popularity</option>
+						<option value="4">Sort By Sale</option>
+						<option value="5">Sort By Rating</option>
+					</select> <span><i class='bx bx-chevron-down'></i></span>
+				</form>
+			</div>
+
+			<div class="footer-a">
+				<div class="footer__products-items-two-pro" >
+
+					<div class="footer__product-items-two-card customer-pro" th:each="product:${listpr}" th:object="${product}">
+						<div class="card-img">
+							<img th:src="@{|/assets/folderimg/${product.image}|}">
+						</div>
+						<div class="card-img-title">
+							<h2 th:text="*{name}"></h2>
+							<div class="card-img-price">
+								<span class="card-img-price-new" th:text="*{price}"> <i
+									class="fas fa-dollar-sign"></i>
+								</span>
+							</div>
+							<a th:href="@{|/home/add/${product.id}}">BUY NOW</a>
+						</div>
+					</div>
+
+				</div>
+
+
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="page-content-first">
+				<a th:href="@{|/home/product?listpr=${listpr.number - 1}|}">First</a>
+			</div>
+			<a class="soluong"> [[${listpr.number + 1}]]</a>
+			<div class="page-content-first">
+
+				<a th:href="@{|/home/product?listpr=${listpr.number + 1}|}">Next</a>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

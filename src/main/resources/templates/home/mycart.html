@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" th:replace="~{/layout/layout::dynamic(~{::body})}">
+
+<body>
+<div class="popup center">
+	<div class="title">Thông tin Orders</div>
+	<form class="popup-form" th:action="@{orderDetails}" method="post" modelAttribute="itemodercart">
+		<div class="form-infor1">
+			<div class="infor-input1">
+				<div class="labler">
+					<label for="">ID Odder</label>
+				</div>
+				<input name="orderId"   disabled="true"
+					placeholder="ID Order" />
+			</div>
+			<div class="infor-input">
+				<div class="labler">
+					<label for="">Username Người đặt</label>
+				</div>
+				<input name="account.username" disabled="true" th:value="${#request.remoteUser}"  >
+			</div>
+			<div class="infor-input1">
+				<div class="labler">
+					<label for="">Nhập địa chỉ nhận hàng</label>
+				</div>
+				<input name="address"  type="text"
+					placeholder="Địa chỉ" />
+			</div>
+		</div>
+		<div class="dismiss-btn">
+			<button  th:formaction="@{/customer/orderfromcart}">Buy Now</button>
+			<a style="cursor: pointer;" id="dismiss-popup-btn">Cancel</a>
+		</div>
+	</form>
+</div>
+<div class=" cart">
+	<table>
+		<tr>
+			<th>Product</th>
+			<th>Quantity</th>
+			<th>Subtotal</th>
+		</tr>
+		<tbody th:each="carts:${carts}" th:object=${carts}>
+				<form th:action="@{/home/update}" method="post">
+				<input type="hidden" name="proId" th:value="*{proId}">
+				
+				<tr>
+					<td>
+						<div class="cart-info">
+							<img th:src="@{|/assets/folderimg/${carts.image}|}" alt="">
+							<div>
+								<p class="title-pro" th:text="*{name}"></p>
+								Price:  <span th:text="*{price}"></span> <br /> <a th:href="@{|/home/delete/${carts.proId}|}">Remove</a>
+							</div>
+						</div>
+					</td>
+					<td><input name="qty" th:value="*{qty}" onblur="this.form.submit()" min="1"></td>
+					<td th:text="*{price*qty}"></td>
+				</tr>
+				</form>
+			
+
+		</tbody>
+
+
+
+
+	</table>
+
+	<div class="total-price">
+		<table>
+			<tr>
+				<td>Hóa đơn</td>
+				<td th:text="*{total}"></td>
+			</tr>
+			
+			<tr>
+				<td>Thành tiền	</td>
+				<td th:text="*{total}"></td>
+			</tr>
+		</table>
+		<a class="checkout btn open-popup-btn">Đặt hàng</a>
+
+	</div>
+
+</div>
+<script>
+		function myFunction() {
+			var dropdownContent = document.querySelector('.dropdown-content');
+			dropdownContent.classList.toggle('dropdown-toggle');
+		}
+		const openPopups = document.getElementsByClassName("open-popup-btn");
+	    for(let idx= 0; idx < openPopups.length; idx++) {
+	        openPopups[idx].addEventListener("click", () => {
+	            document.getElementsByClassName("popup")[0].classList.add("active");
+	        })
+	    }
+	    document.getElementById("dismiss-popup-btn").addEventListener("click", function () {
+	    	console.log("CANCEL")
+	        document.getElementsByClassName("popup")[0].classList.remove("active");
+	    });
+	</script>
+</body>
+</html>

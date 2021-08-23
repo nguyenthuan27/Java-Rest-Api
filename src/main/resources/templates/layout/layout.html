@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org" th:fragment="dynamic(view)">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="/accsets/style.css" />
+<link rel="stylesheet" type="text/css" href="/accsets/form.css" />
+<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css'
+	rel='stylesheet'>
+	
+<title>Insert title here</title>
+</head>
+<body>
+
+	<header th:insert="~{/layout/_menu.html :: navbar}"></header>
+
+	<main th:replace="${view}"></main>
+
+	<footer th:insert="~{/layout/_footer.html :: footer}"></footer>
+
+	<script type="text/javascript">
+const navBar = document.querySelector(".nav");
+const navHeight = navBar.getBoundingClientRect().height;
+window.addEventListener("scroll", () => {
+  const scrollHeight = window.pageYOffset;
+  if (scrollHeight > navHeight) {
+    navBar.classList.add("fix-nav");
+  } else {
+    navBar.classList.remove("fix-nav");
+  }
+});
+function myad() {
+	
+	var dropdownContent = document.querySelector('.dropdown-content');
+	dropdownContent.classList.toggle('dropdown-toggle');
+}
+
+	</script>
+</body>
+</html>

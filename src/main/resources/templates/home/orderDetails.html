@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html YPE html>
+<html xmlns="http://www.thymeleaf.org"
+	th:replace="~{/layout/layout::dynamic(~{::body})}">
+<body>
+	<div class=" cart">
+		<table>
+			<tr>
+				<th>Tên sản phẩm</th>
+				<th>Giá</th>
+				<th>Ngày mua</th>
+				<th>Số lượng</th>
+				<th>Trạng thái</th>
+			</tr>
+			<tbody th:each="listmycart:${listmycart}" th:object=${listmycart}>
+
+					<tr>
+						<td th:text="*{name}"></td>
+						<td th:text="*{priceproduct}"></td>
+						<td th:text="*{createDate}"></td>
+						<td th:text="*{countquantity}"></td>
+						<td th:text="*{statusde}"></td>
+					</tr>
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>
